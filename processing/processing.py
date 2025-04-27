@@ -4,7 +4,8 @@
 # File name: processing.py
 # Author: FRBNF11934724
 # Date created: 2025-04-15
-# Version = "1.0"
+# Date modified: 2025-04-25
+# Version = "1.0.1"
 # License =  "The Unlicense"
 # =============================================================================
 """ Gather and process the dailyword's project source datasets."""
@@ -48,8 +49,8 @@ FREQ_THRESHOLD: float = 0.4
 CLEANING_REGEX = re.compile(r'["$$$$]')
 LOWVALUE_PATTERN = re.compile(
     r'pluriel|action d|in singulier d|inin d|du verbe|qualité d|caractère d|celui,\s*celle|celui qu|celle qu|fait d|'
-    r'individu qui|personne qui|qui peut être|qui a rapport|qui se rapporte|qui concerne|relatif à|relatif a|état de|'
-    r'opposition à|qui cherche|ce qui est|variante d|variante ortho|quelque chose|quelqu\'un qui',
+    r'individu qui|personne qui|qui peut être|qui a rapport|qui se rapporte|qui concerne|relatif (?:à|a)"|état de|'
+    r'opposition à|qui cherche|ce qui est|variante (?:d|ortho)|quelque chose|quelqu\'un qui|[rm]e personne d',
     flags=re.IGNORECASE
 )
 
@@ -168,6 +169,16 @@ def merge_dataframes(dico_df: pd.DataFrame, lexique_df: pd.DataFrame) -> pd.Data
     return merged_df
 
 
+def remove_low_value_sentence(definition):
+    # Split on the delimiter '|'
+    sentences = [s.strip() for s in definition.split("|")]
+    # Filter out any sentence that contains a low-value pattern.
+    filtered = [
+        s for s in sentences if not LOWVALUE_PATTERN.search(s)]
+    # Re-join the chunks with ' | ' if any remain; otherwise return an empty string.
+    return " | ".join(filtered) if filtered else ""
+
+
 def clean_and_process_definitions(df: pd.DataFrame) -> pd.DataFrame:
     """
     Clean and process definitions by:
@@ -190,7 +201,7 @@ def clean_and_process_definitions(df: pd.DataFrame) -> pd.DataFrame:
     # Combine lists into a joined string
     df['définitions'] = df['définitions'].apply(lambda lst: ' | '.join(lst))
 
-    # Remove duplicate definitions (simple approach)
+    # Remove duplicate definitions
     df['définitions'] = df['définitions'].apply(
         lambda s: " | ".join(dict.fromkeys(s.split(" | "))))
 
@@ -201,11 +212,20 @@ def clean_and_process_definitions(df: pd.DataFrame) -> pd.DataFrame:
     df['définitions'] = df['définitions'].str.replace(
         r"(?<!\w)'(?!\w)", "", regex=True)
 
-    # Filter out definitions based on a single regex pass
-    cond = df['définitions'].str.contains(
-        LOWVALUE_PATTERN, na=False) & ~df['définitions'].str.contains('\\|', na=False)
+    # Filter out low content definitions by sentences
+    df = (df.assign(définitions=df['définitions']
+                    .apply(remove_low_value_sentence)
+                    .str.strip())
+          .query("définitions != ''"))
 
-    df = df.loc[~cond].copy()
+    # Filter out definitions (older more conservative method)
+    # keeps low content if more than one definition present (contains a |)
+    # cond = df['définitions'].str.contains(
+    #    LOWVALUE_PATTERN, na=False) & ~df['définitions'].str.contains('\\|', na=False)
+    # df = df.loc[~cond].copy()
+
+    df = df[df['définitions'].str.len() > 3]
+
     return df
 
 
