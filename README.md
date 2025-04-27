@@ -5,15 +5,15 @@
 ![Banner Image](<img/Dictionnaire mini-débutants 1990.jpg> "An image depicting the syren entry and its illustration in a children's dictionary (french).")
 *Larousse's mini débutants dictionary (1990).*
 
-**dailyword** is a (very) simple bash computer program that unveils a new random word along with its definition(s) helping you review french words progressively, once a day, one at a time straight from your terminal.
-Furthermore, the displayed words are not common words. They have been carefully extracted by cross-referencing two datasets. You'll find more informations about the dataset building in the [processing](#data-processing) part and in the [acknowledgments](#acknowledgments).
+**dailyword** is a (very) simple bash computer program that unveils a new random word along with its definition(s) helping you review french words progressively, once a day, one at a time, straight from your terminal.
+Furthermore, the displayed words are not common ones. They have been carefully extracted by cross-referencing two datasets. You'll find more informations about the dataset building in the [processing](#data-processing) part and in the [acknowledgments](#acknowledgments).
 
 ![Demo Image](<img/dailyword.png> "Demonstration of the dailyword package running in the terminal.")
 *Pardon my french ;)*
 
 ## Genesis
 
-> The idea occurred to me when I came accross a Guillemette Faure [article](https://www.lemonde.fr/m-le-mag/article/2025/04/12/braillonne-n-m-celui-qui-parle-tres-fort-de-son-impossibilite-de-parler_6594625_4500055.html). Why not having something like this? But not in the shape of another [heavyweight app](https://en.wiktionary.org/wiki/use_a_sledgehammer_to_crack_a_nut). There are already too much of these, and most just keep increasing our mental workload until we stop using them after a short time. Nah, I wanted to take over an unexplored space, in a **simple and minimalist** fashion that could spark my curiosity without being overly intrusive nor distracting. What's better space for that purpose than a terminal? So, after a weekend of tinkering, here it is! The first prototype. There is a broad scope of possibilities in there: I really *invite you* to take over the concept and make it your own daily greeting space somehow. That could be a mental challenge, an excerpt from your favourite book.. Whatever, as long as it's reflects a genuine part of your self and makes your day start with a simple and yet mesmerizing smile.
+> The idea occurred to me when I came accross a Guillemette Faure [article](https://www.lemonde.fr/m-le-mag/article/2025/04/12/braillonne-n-m-celui-qui-parle-tres-fort-de-son-impossibilite-de-parler_6594625_4500055.html). Why not having something like this? But not in the shape of another [heavyweight app](https://en.wiktionary.org/wiki/use_a_sledgehammer_to_crack_a_nut). There are already too much of these, and most just keep increasing our mental workload until we stop using them after a short time. Nah, I wanted to take over an unexplored space, in a **simple and minimalist** fashion that could spark my curiosity without being overly intrusive nor distracting. What's better space for that purpose than a terminal? So, after a weekend of tinkering, here it is! The first prototype. There is a broad scope of possibilities in there: I really *invite you* to take over the concept and make it your own daily greeting space somehow. That could be a mental challenge, an excerpt from your favourite book or just a song to listen to. Whatever, as long as it reflects a genuine part of your self and makes your day start with a mesmerizing smile.
 
 ## Table of Content
 
@@ -51,7 +51,7 @@ Furthermore, the displayed words are not common words. They have been carefully 
 
 ### Installation requirements
 
-- The [**dailyword.deb**](https://github.com/brooks-code/fuzzy-carnival/releases/download/v1.0.0/dailyword.deb) file and dpkg (built-in Debian/Ubuntu based systems).
+- The [**dailyword.deb**](https://github.com/brooks-code/fuzzy-carnival/releases/download/v1.0.1/dailyword.deb) file and dpkg (built-in Debian/Ubuntu based systems).
 
 ### Usage requirements
 
@@ -78,7 +78,7 @@ pip install -r requirements.txt
 You can then run the processing script from you favourite IDE or manually with:
 
 ```bash
-python3 processing.py  
+python processing.py  
 ```
 
 > [!NOTE]
@@ -96,22 +96,34 @@ Run the installation script:
 
 This command automates the download and installation process of the **dailyword.deb** package.
 
+<details>
+<summary>in case you already have the .deb package on your disk - click to expand</summary>
+
+You can then proceed like this:
+
+   ```bash
+  sudo dpkg -i dailyword.deb
+   ```
+
+from the package location folder.
+</details>
+
 ### Removal
 
-You can then remove the software like this:
+You can remove the software with this command:
 
    ```bash
    sudo dpkg -r dailyword
    ```
 
-This will remove all the installed files and restore the .bashrc file to its initial state.
+This will delete all the installed files and restore the `.bashrc` file to its initial state.
 
 #### Manual installation (not recommanded)
 
 <details>
 <summary>Click to expand</summary>
 
-If for any reason, you don't want to use the .deb package. On GNU/POSIX compatible systems, you can still set it up manually:
+If for any reason, you don't want to use the *.deb package*. On GNU/POSIX compatible systems, you can still set things up manually:
 
 1. Download (and unpack) or clone this repository:
 
@@ -218,8 +230,8 @@ ASCII_ART: # Decorative text art displayed at the top.
 ASCII_COLOR: # Color used for displaying ASCII art header (default: copper).
 
 # Gradient configuration variables:
-GRADIENT_START: # The starting RGB values for the gradient (default: Teal - [0, 128, 128])
-GRADIENT_END: # The ending RGB values for the gradient (default: Dark Orange - [255, 140, 0])
+GRADIENT_START: # The starting RGB values for the gradient (default: teal - [0, 128, 128])
+GRADIENT_END: # The ending RGB values for the gradient (default: dark orange - [255, 140, 0])
 SCALE: # Used for calculating the gradient steps.
 ```
 
@@ -230,7 +242,7 @@ The colors have been selected to fit both dark and light terminal modes. You can
 The main objective is to provide new words to be discovered with the challenge of avoiding too common words. To ensure that, the processing leverages two datasets: Lexique and Dico.
 The processing script keeps only pertinent columns in Lexique and computes a custom frequency index (a weighted average) that synthetizes frequencies based on different measures. After reading [this](http://openlexicon.fr/datasets-info/Lexique382/Manuel_Lexique3.html#__RefHeading___Toc152122352) (french), the choice has been made to emphasize the weights of the book-related frequency indexes since, vocabulary found in literature tends to be more nuanced and sophisticated than the one used in movies.
 
-The process is followed by augmenting the data with matching definitions entries from the Dico dataset. The cleaning process removes duplicates and words considered as too common (i.e. too frequent) based on the custom frequency threshold. Also, definitions with keywords who potentially indicate a definition with less informational value will be filtered out. The script also corrects a bias occuring for some feminine definitions to ensure equivalent levels of description for both genders.
+The process is followed by associating the data with matching definitions entries from the Dico dataset. The cleaning process removes duplicates and words considered as too common (i.e. too frequent) based on the custom frequency threshold. Also, definitions with keywords who potentially indicate a definition with less informational value will be filtered out. The script also corrects a bias occuring for some feminine definitions to ensure equivalent levels of description for both genders.
 
 Finally, the sorted results, with their handled accented characters, are exported to a CSV file, thus providing an informative list ready to be processed by the dailyword program.
 
@@ -260,8 +272,11 @@ As you see can see above, in case of polysemy, definitions are separated by a ` 
 
 ## Improvements
 
-- [ ] Use more advanced NLP techniques during data processing to ensure a better semantic discoverability.
+Some improvements that might happen during the next releases:
+
+- [ ] Better low content definitions cleaning.
 - [ ] Keep optimizing the main script for better performance.
+- [ ] Use more advanced NLP techniques to ensure a better semantic discoverability.
 
 ## Troubleshooting
 

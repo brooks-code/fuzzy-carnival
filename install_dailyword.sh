@@ -29,7 +29,7 @@ set -e
 
 REPO="brooks-code/fuzzy-carnival"
 PACKAGE="dailyword.deb"
-VERSION="v1.0.0"
+VERSION="v1.0.1"
 DOWNLOAD_URL="https://github.com/${REPO}/releases/download/${VERSION}/${PACKAGE}"
 
 echo "Downloading ${PACKAGE} from ${DOWNLOAD_URL}..."
