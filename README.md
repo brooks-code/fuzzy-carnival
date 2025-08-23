@@ -239,6 +239,9 @@ The colors have been selected to fit both dark and light terminal modes. You can
 
 ## Data processing
 
+> [!NOTE]
+> A simplified version of this dataset is available on [Kaggle](https://www.kaggle.com/datasets/grimespoint/french-unusual-words).
+
 The main objective is to provide new words to be discovered with the challenge of avoiding too common words. To ensure that, the processing leverages two datasets: Lexique and Dico.
 The processing script keeps only pertinent columns in Lexique and computes a custom frequency index (a weighted average) that synthetizes frequencies based on different measures. After reading [this](http://openlexicon.fr/datasets-info/Lexique382/Manuel_Lexique3.html#__RefHeading___Toc152122352) (french), the choice has been made to emphasize the weights of the book-related frequency indexes since, vocabulary found in literature tends to be more nuanced and sophisticated than the one used in movies.
 
