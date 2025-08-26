@@ -59,7 +59,7 @@ Furthermore, the displayed words are not common ones. They have been carefully e
   - Standard Unix utilities: date, awk (preferably GNU awk (gawk) for FPAT), sed, printf, mv, grep and alias.
 
 > [!NOTE]
-> **In short:** you should not need to install anything more than the *dailyword* program. In standard Unix systems, **most** required utilities are built-in by default and if not, the installer will handle the dependencies properly.
+> **In short:** you should not need to install anything more than the *dailyword* program. In standard Unix systems, **most** required utilities are built-in by default and if not, the installer script will handle missing dependencies properly.
 
 ### Dataset building requirements
 
