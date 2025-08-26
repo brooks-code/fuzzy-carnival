@@ -55,13 +55,13 @@ Furthermore, the displayed words are not common ones. They have been carefully e
 
 ### Usage requirements
 
-- Only *Bash* (or a compatible shell), that's it, really.
-  - Standard Unix utilities: date, awk (preferably GNU awk for FPAT), sed, printf, mv, grep and alias (built-in shell).
+ - *Bash* (or a compatible shell), that's it, really.
+  - Standard Unix utilities: date, awk (preferably GNU awk (gawk) for FPAT), sed, printf, mv, grep and alias.
 
 > [!NOTE]
-> **In short:** you should not need to install anything more than the *dailyword* program. In standard Unix systems, required utilities are built-in by default.
+> **In short:** you should not need to install anything more than the *dailyword* program. In standard Unix systems, **most** required utilities are built-in by default and if not, the installer will handle the dependencies properly.
 
-### Dataset building
+### Dataset building requirements
 
 Only if you want to experiment with the [data processing](#data-processing) and build the definitions dataset from scratch. You'll need:
 
