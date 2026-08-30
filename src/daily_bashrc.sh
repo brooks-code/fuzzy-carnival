@@ -23,7 +23,7 @@
 #
 # Caution:      Ensure that /opt/dailyword/dailyword.sh exists and is executable.
 #
-# Author:       github.com/brooks-code
+# Author:       github.com/hyperphantasia
 # Date:         2025-04-25
 # Version:      1.0.1
 #

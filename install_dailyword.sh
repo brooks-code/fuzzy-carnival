@@ -21,13 +21,13 @@
 #   Run this script to automatically download and install the specified
 #   package from its GitHub release URL.
 #
-# Author:       github.com/brooks-code
+# Author:       github.com/hyperphantasia
 # Date:         2025-04-15
 ######################################################################
 
 set -e
 
-REPO="brooks-code/fuzzy-carnival"
+REPO="hyperphantasia/fuzzy-carnival"
 PACKAGE="dailyword.deb"
 VERSION="v1.0.1"
 DOWNLOAD_URL="https://github.com/${REPO}/releases/download/${VERSION}/${PACKAGE}"

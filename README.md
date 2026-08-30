@@ -26,7 +26,7 @@ Furthermore, the displayed words are not common ones. They have been carefully e
   - [Requirements](#requirements)
     - [Installation requirements](#installation-requirements)
     - [Usage requirements](#usage-requirements)
-    - [Dataset building](#dataset-building)
+    - [Dataset building](#dataset-building-requirements)
   - [Installation](#installation)
     - [On Debian/Ubuntu based distros](#on-debianubuntu-based-distros)
     - [Removal](#removal)
@@ -51,12 +51,12 @@ Furthermore, the displayed words are not common ones. They have been carefully e
 
 ### Installation requirements
 
-- The [**dailyword.deb**](https://github.com/brooks-code/fuzzy-carnival/releases/download/v1.0.1/dailyword.deb) file and dpkg (built-in Debian/Ubuntu based systems).
+- The [**dailyword.deb**](https://github.com/hyperphantasia/fuzzy-carnival/releases/download/v1.0.1/dailyword.deb) file and dpkg (built-in Debian/Ubuntu based systems).
 
 ### Usage requirements
 
  - *Bash* (or a compatible shell), that's it, really.
-  - Standard Unix utilities: date, awk (preferably GNU awk (gawk) for FPAT), sed, printf, mv, grep and alias.
+ - Standard Unix utilities: date, awk (preferably GNU awk (gawk) for FPAT), sed, printf, mv, grep and alias.
 
 > [!NOTE]
 > **In short:** you should not need to install anything more than the *dailyword* program. In standard Unix systems, **most** required utilities are built-in by default and if not, the installer script will handle missing dependencies properly.
@@ -91,7 +91,7 @@ python processing.py
 Run the installation script:
 
    ```bash
- curl -sL https://raw.githubusercontent.com/brooks-code/fuzzy-carnival/main/install_dailyword.sh | bash
+ curl -sL https://raw.githubusercontent.com/hyperphantasia/fuzzy-carnival/main/install_dailyword.sh | bash
    ```
 
 This command automates the download and installation process of the **dailyword.deb** package.
@@ -128,7 +128,7 @@ If for any reason, you don't want to use the *.deb package*. On GNU/POSIX compat
 1. Download (and unpack) or clone this repository:
 
     ```bash
-    git clone https://github.com/brooks-code/fuzzy-carnival.git
+    git clone https://github.com/hyperphantasia/fuzzy-carnival.git
     cd fuzzy-carnival-main # if you're not in the created directory already.
     ```
 
